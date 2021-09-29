@@ -1,0 +1,14 @@
+FROM winamd64/golang:1.16.8-nanoserver-1809
+
+ENV APP_SECRET="nothing yet..."
+ENV GOOS="windows"
+ENV GOARCH="amd64"
+
+WORKDIR /
+COPY go.mod ./
+RUN go mod download
+COPY *.go ./
+RUN go build -o ./main.exe
+
+EXPOSE 80
+ENTRYPOINT ["main.exe"]
